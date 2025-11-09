@@ -23,7 +23,7 @@ const DashboardLayout = ({blogs}) => {
             Member since : {formatDate(user.joined_on)}
           </p>
         </h1>
-        <Link to="/create-blog" className="px-4 p-2 bg-red-500 font-bold text-white drop-shadow-lg ms-auto  rounded-md"> <FilePlus className="inline h-5 w-5" /> Create Blog</Link>
+        <Link to="/create-blog" className="px-4 p-2 red-gradient font-bold text-white drop-shadow-lg ms-auto  rounded-md"> <FilePlus className="inline h-5 w-5" /> Create Blog</Link>
       </div>
       
     </div>

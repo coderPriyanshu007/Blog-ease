@@ -4,6 +4,8 @@ import { fetchBlogs } from "../api/blogs";
 import { Home, List, User, Settings } from "lucide-react";
 import DashboardLayout from "../components/DashboardLayout";
 import BlogsPage from "./BlogsPage";
+import Profile from "../components/Profile";
+
 export default function Dashboard() {
   const [active, setActive] = useState("Dashboard");
   const [blogs,setBlogs] = useState([]);
@@ -35,7 +37,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50  ">
       <div className="container-xl h-full lg:container  h-full mx-auto">
-        <div className={` stick    bg-red-500 top-0 mb-4  w-full text-white }`}>
+        <div className={` stick    red-gradient top-0 mb-4  w-full text-white }`}>
           <div className=" flex  p-4  space-x-1">
             {menuItems.map((item) => (
               <button

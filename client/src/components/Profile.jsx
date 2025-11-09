@@ -1,23 +1,56 @@
 import { useState } from "react";
 import { User, Mail, Lock, Save, FileText } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
+import { updateUserProfile } from "../api/user";
 
 export default function Profile() {
+  const { user ,token} = useAuth();
+  const [updating,setUpdating] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    bio: "",
+    name: user.name,
+    bio: user.bio || "",
     password: "",
     newPassword: "",
     confirmPassword: "",
   });
+  
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData); // Replace with backend API call
+    setUpdating(true);
+    const toastId = toast.loading("Updating...");
+    
+    try {
+      const res = await updateUserProfile(formData, token);
+      toast.update(toastId, {
+        render: res.message || "Profile Updated!",
+        isLoading: false,
+        type: "success",
+        autoClose: 1500,
+        hideProgressBar: true,
+      });
+     
+    } catch (err) {
+      console.error(err.message);
+      toast.update(toastId, {
+        render: err.message || "Failed to update profile",
+        isLoading: false,
+        type: "error",
+        autoClose: 1500,
+        hideProgressBar: true,
+      });
+    } finally {
+      setUpdating(false);
+    }
   };
 
   return (
@@ -60,10 +93,10 @@ export default function Profile() {
           <div className="flex items-center bg-gray-50 dark:bg-gray-800 rounded-lg px-3 py-2 border border-gray-200 dark:border-gray-700">
             <Mail className="text-gray-400 mr-2" size={18} />
             <input
+            readOnly
               type="email"
               name="email"
-              value={formData.email}
-              onChange={handleChange}
+              value={user.email}
               className="w-full bg-transparent focus:outline-none text-gray-800 dark:text-white"
               placeholder="Enter your email"
             />
@@ -117,16 +150,26 @@ export default function Profile() {
                 />
               </div>
             ))}
+            {formData.confirmPassword &&
+              formData.confirmPassword !== formData.newPassword && (
+                <div className="text-red-500">
+                  Passwords don't match. Enter same new passwords.
+                </div>
+              )}
           </div>
         </div>
 
         {/* Save Button */}
         <button
           type="submit"
-          className="w-full mt-6 bg-gradient-to-r from-rose-500 to-red-600 text-white py-3 rounded-lg flex items-center justify-center gap-2 font-medium shadow-md hover:shadow-lg transition-all duration-300"
+          disabled={
+            (formData.newPassword && !formData.password) ||
+            formData.newPassword !== formData.confirmPassword
+          }
+          className="w-full mt-6 red-gradient  text-white py-3 rounded-lg flex items-center justify-center gap-2 font-medium shadow-md hover:shadow-lg transition-all duration-300"
         >
           <Save size={18} />
-          Save Changes
+          {!updating?'Save Changes':'Saving...'}
         </button>
       </form>
     </div>

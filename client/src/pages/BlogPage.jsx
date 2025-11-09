@@ -74,8 +74,8 @@ const BlogPage = () => {
 
   return (
     <>
-      <section>
-        <div className="container m-auto py-6 px-6">
+      <section >
+        <div className="container  m-auto py-6 px-6">
           <Link
             to="/blogs"
             className=" rounded-md px-3 py-1 border-transparent text-black  inline-flex items-center hover:border-solid  hover:text-red-500 hover:border-red-500 border-2"
@@ -88,7 +88,7 @@ const BlogPage = () => {
       {loading ? (
         <Spinner loading={loading} />
       ) : (
-        <section className="bg-gray-50">
+        <section className="bg-gray-50 min-h-screen">
           <div className="container m-auto py-10 px-6">
             <div className="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
               <main>

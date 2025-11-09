@@ -107,7 +107,7 @@ const Navbar = () => {
             ) : (
               <NavLink
                 to="/auth"
-                className="bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-2 rounded-lg transition-colors duration-300 ease-in"
+                className="red-gradient hover:bg-red-600 text-white font-bold px-4 py-2 rounded-lg transition-colors duration-300 ease-in"
               >
                 Get Started
               </NavLink>

@@ -209,7 +209,7 @@ const EditBlog = () => {
           <button
             type="submit"
             disabled={updating}
-            className="w-full py-3 px-4 bg-red-600 text-white font-semibold rounded-md shadow hover:bg-red-700 transition"
+            className="w-full py-3 px-4 red-gradient  text-white font-semibold rounded-md shadow hover:bg-red-700 transition"
           >
             {updating ? "Updating..." : "Update"}
           </button>

@@ -149,19 +149,7 @@ const CreateBlog = () => {
 
           {/*  body */}
           <div>
-            {/* <label htmlFor="body" className="block text-sm font-medium text-gray-700">
-              Content
-            </label>
-            <textarea
-              id="body"
-              name="body"
-              value={formData.body}
-              onChange={handleChange}
-              rows="20"
-              maxLength={500}
-              placeholder="Write your blog content here..."
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
-            ></textarea> */}
+           
             <BlogEditor value={formData.body}  
             onChange={(newValue) => setFormData({ ...formData, body: newValue })} />
           </div>
@@ -170,7 +158,7 @@ const CreateBlog = () => {
           <button
             type="submit"
             disabled={adding}
-            className="w-full py-3 px-4 bg-red-600 text-white font-semibold rounded-md shadow hover:bg-red-700 transition"
+            className="w-full py-3 px-4 red-gradient text-white font-semibold rounded-md shadow hover:bg-red-700 transition"
           >
             {adding ? "Creating..." : "Create blog"}
           </button>

@@ -28,7 +28,7 @@ export default function LandingPage() {
           {!user && (
             <Link
               to="/auth"
-              className="bg-red-500 text-white px-6 py-3 rounded-md font-medium hover:bg-red-600 "
+              className="red-gradient text-white px-6 py-3 rounded-md font-medium hover:bg-red-600 "
             >
               Get Started
             </Link>

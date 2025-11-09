@@ -13,3 +13,7 @@ h1, .playfair{
 .playwrite{
     font-family: 'Playwrite DE Grund', sans-serif;
 }
+
+.red-gradient{
+    @apply bg-gradient-to-r from-rose-500 to-red-600;
+}
