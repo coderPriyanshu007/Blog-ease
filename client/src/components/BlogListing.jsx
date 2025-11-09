@@ -76,12 +76,13 @@ const BlogListing = ({ title, searchTerm , selectedCategory, blogList, dashboard
               ? searchResults.map((blog) => (
                   <BlogListingComp key={blog.id} blog={blog} />
                 ))
-              :  blogs ? blogs.map((blog) => (
+              :blogs.map((blog) => (
                   <BlogListingComp key={blog.id} blog={blog} />
-                )):
-                (<div className="mt-20 text-center">
-                  No blogs yet
-                </div>)
+                ))
+                
+                }
+                {
+                  blogs.length===0 && <div className="mt-20 text-center">No blogs yet</div>
                 }
           </div>
         )}
