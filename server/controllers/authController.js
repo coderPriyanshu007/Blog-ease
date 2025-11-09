@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import { createUser, findUserByEmail } from "../models/authModel.js";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
+import generateUniqueUserId from "../utils/generateUniqueUserId.js";
 
 
 
@@ -11,7 +12,7 @@ dotenv.config();
 
 export const register = async (req, res) => {
   const { username, email, password } = req.body;
-
+  const user_id = generateUniqueUserId(username);
   try {
     const existingUser = await findUserByEmail(email);
     if (existingUser) {
@@ -24,6 +25,7 @@ export const register = async (req, res) => {
       username,
       email,
       password: hashedPassword,
+      user_id
     });
     
 
