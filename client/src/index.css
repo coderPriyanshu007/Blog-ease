@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body ,  .roboto{
+    font-family: "Roboto", sans-serif;
+}
+
+h1, .playfair{
+    font-family: 'Raleway', sans-serif;
+}
+
+.playwrite{
+    font-family: 'Playwrite DE Grund', sans-serif;
+}
