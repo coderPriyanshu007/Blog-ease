@@ -20,7 +20,7 @@ const DashboardLayout = ({blogs}) => {
         <h1 className="text-4xl text-gray-800  playwrite font-bold p-4">
           <span className="text-red-500">Welcome</span>, {user.name}{" "}
           <p  className="text-gray-600 text-sm font-normal mt-4">
-            Member since : {formatDate(user.registered_on)}
+            Member since : {formatDate(user.joined_on)}
           </p>
         </h1>
         <Link to="/create-blog" className="px-4 p-2 bg-red-500 font-bold text-white drop-shadow-lg ms-auto  rounded-md"> <FilePlus className="inline h-5 w-5" /> Create Blog</Link>
