@@ -57,7 +57,7 @@ const BlogListing = ({ title, searchTerm , selectedCategory, blogList, dashboard
   }
   },[selectedCategory])
 
-  if(blogs.length===0) return <div className="text-lg text-center mt-20">No blogs yet.</div>
+  
 
   return (
     <section className="bg-gray-50  py-10">
@@ -76,9 +76,13 @@ const BlogListing = ({ title, searchTerm , selectedCategory, blogList, dashboard
               ? searchResults.map((blog) => (
                   <BlogListingComp key={blog.id} blog={blog} />
                 ))
-              : blogs.map((blog) => (
+              :  blogs ? blogs.map((blog) => (
                   <BlogListingComp key={blog.id} blog={blog} />
-                ))}
+                )):
+                (<div className="mt-20 text-center">
+                  No blogs yet
+                </div>)
+                }
           </div>
         )}
       </div>

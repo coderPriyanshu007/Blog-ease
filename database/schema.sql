@@ -4,7 +4,8 @@ CREATE TABLE users (
   name VARCHAR(100),
   email VARCHAR(100) UNIQUE NOT NULL,
   password VARCHAR(255) NOT NULL,
-  registered_on DATE DEFAULT CURRENT_DATE,
+  bio TEXT,git
+  registered_on DATE DEFAULT CURRENT_DATE
 );
 
 
