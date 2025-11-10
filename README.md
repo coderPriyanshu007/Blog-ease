@@ -76,7 +76,7 @@ npm run dev
 ## Postman Documentation
 
 ### 1. Link to Postman docmentation
-- [Postman Documentation](https://documenter.getpostman.com/view/48936818/2sB3QFSCgk)
+- [Postman Documentation](https://documenter.getpostman.com/view/49931592/2sB3WtrJdm)
 
 
 ### 2. Or just import postman json file in the postman directory in the repo
