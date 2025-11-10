@@ -11,6 +11,7 @@ const CreateBlog = () => {
   const {token,user} = useAuth();
   const Navigate = useNavigate();
   const [formData, setFormData] = useState({
+    user_id : user?.user_id,
     blog_id: generateBlogId(),
     title: "",
     category: "",

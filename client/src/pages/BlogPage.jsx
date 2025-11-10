@@ -11,10 +11,11 @@ import  formatViews  from "../utils/formatViews";
 import { deleteBlog, fetchBlogById ,fetchBlogs, updateBlogViews} from "../api/blogs";
 import  {formatDate} from "../utils/formatDate";
 import BlogList from "../components/BlogList";
+import { User } from "lucide-react";
 
 const BlogPage = () => {
   const { id } = useParams();
-  const { token } = useAuth();
+  const { token ,user} = useAuth();
   const [blog, setblog] = useState();
   const [relatedBlogs, setRelatedBlogs] = useState();
   const [moreByAuthor, setMoreByAuthor] = useState();
@@ -119,7 +120,10 @@ const BlogPage = () => {
               </main>
 
               <aside >
-                <div className="bg-white p-6 rounded-lg shadow-md ">
+                {/* manage blogs */}
+                {
+                  user.user_id === blog.user_id && (
+                    <div className="bg-white p-6 rounded-lg shadow-md ">
                   <h1 className="text-xl font-bold mb-6">Manage blog</h1>
                   <Link
                     to={`/edit-blog/${blog.id}`}
@@ -134,6 +138,8 @@ const BlogPage = () => {
                     Delete blog
                   </button>
                 </div>
+                  )
+                }
 
                 {/* related blogs */}
                 <div className="bg-white p-6 rounded-lg shadow-md mt-8 ">

@@ -10,12 +10,12 @@ export const fetchAllBlogs = async () => {
 
 
 export const insertBlog = async (blog) => {
-  const { blog_id, title, category, body,author,topic } = blog;
+  const { blog_id, title, category, body,author,topic,user_id } = blog;
   const query = `
-    INSERT INTO blogs (blog_id, title, category,  body,author,topic)
-    VALUES ($1, $2, $3, $4, $5, $6)
+    INSERT INTO blogs (blog_id, title, category,  body,author,topic,user_id)
+    VALUES ($1, $2, $3, $4, $5, $6,$7)
   `;
-  const values = [blog_id, title, category,  body,author,topic];
+  const values = [blog_id, title, category,  body,author,topic,user_id];
   await pool.query(query, values);
 }
 
