@@ -13,7 +13,6 @@ export default function Dashboard() {
     { icon: Home, label: "Dashboard" },
     { icon: List, label: "My Blogs" },
     { icon: User, label: "Profile" },
-    { icon: Settings, label: "Settings" },
   ];
 
 
