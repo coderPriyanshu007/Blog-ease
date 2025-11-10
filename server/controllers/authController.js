@@ -4,6 +4,7 @@ import { createUser, findUserByEmail } from "../models/authModel.js";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
 import generateUniqueUserId from "../utils/generateUniqueUserId.js";
+import { fetchAllUsers } from "../models/userModel.js";
 
 
 
@@ -12,8 +13,11 @@ dotenv.config();
 
 export const register = async (req, res) => {
   const { username, email, password } = req.body;
-  const user_id = generateUniqueUserId(username);
+  
   try {
+
+    const users = await fetchAllUsers();
+    const user_id = generateUniqueUserId(users.length);
     const existingUser = await findUserByEmail(email);
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });

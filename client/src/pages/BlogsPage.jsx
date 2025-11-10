@@ -18,8 +18,8 @@ const BlogsPage = ({blogs}) => {
   ];
   const [selectedCategory, setSelectedCategory] = useState("All");
   return (
-    <main className="min-h-screen ">
-      <div className="container-xl flex items-center text-lg playfair lg:container p-4 mb-4 rounded-md border m-auto ">
+    <main className="min-h-screen">
+      <div className=" flex items-center text-lg playfair m-4 md:mx-12  p-4 mb-4 rounded-md border m-auto ">
         <FaSearch className="inline me-2 text-gray-500 text-lg " />
         <input
           className="outline-none bg-transparent w-full "
@@ -30,7 +30,7 @@ const BlogsPage = ({blogs}) => {
           placeholder="Search for Topics , Authors , Categories etc..."
         />
       </div>
-      <div className="container-xl lg:container m-auto flex gap-4 flex-nowrap py-4">
+      <div className=" px-4 md:px-12 m-auto flex gap-4 flex-wrap py-4">
         {categories.map((cat, i) => (
           <button
             key={i}

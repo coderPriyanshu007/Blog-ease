@@ -21,5 +21,7 @@ export const updateUserProfile = async (name,bio,password,id) =>{
 
 
 
-
-  
+export const fetchAllUsers = async()=>{
+    const {rows} = await pool.query('SELECT * FROM users');
+    return rows;
+}

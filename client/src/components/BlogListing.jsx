@@ -61,7 +61,7 @@ const BlogListing = ({ title, searchTerm , selectedCategory, blogList, dashboard
 
   return (
     <section className="bg-gray-50  py-10">
-      <div className="container-xl lg:container m-auto">
+      <div className="px-4 md:px-12 m-auto">
         {title ? (
           <h2 className="text-3xl py-2 border-b font-bold text-black mb-6 text-start">
             {title}
@@ -71,7 +71,7 @@ const BlogListing = ({ title, searchTerm , selectedCategory, blogList, dashboard
         {loading ? (
           <Spinner loading={loading} />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-12">
             {searchTerm || (selectedCategory && selectedCategory !== 'All')
               ? searchResults.map((blog) => (
                   <BlogListingComp key={blog.id} blog={blog} />

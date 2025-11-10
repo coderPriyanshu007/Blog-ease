@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { FaArrowLeft, FaMapMarker } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
@@ -8,7 +8,7 @@ import Spinner from "../components/Spinner";
 import writing from "../assets/writing.png";
 import { FaEye } from "react-icons/fa";
 import  formatViews  from "../utils/formatViews";
-import { deleteBlog, fetchBlogById ,fetchBlogs} from "../api/blogs";
+import { deleteBlog, fetchBlogById ,fetchBlogs, updateBlogViews} from "../api/blogs";
 import  {formatDate} from "../utils/formatDate";
 import BlogList from "../components/BlogList";
 
@@ -24,7 +24,9 @@ const BlogPage = () => {
   useEffect(() => {
     const loadblog = async () => {
       try {
+       
         const blog = await fetchBlogById(id, token);
+        
         setblog(blog);
       } catch (err) {
         console.log(err.message);
@@ -33,8 +35,11 @@ const BlogPage = () => {
       }
     };
     loadblog();
+  },[]);
 
-     const loadBlogs = async () => {
+  useEffect(()=>{
+
+    const loadBlogs = async () => {
           try {
             const blogs = await fetchBlogs()
             setMoreByAuthor(blogs.filter(b=> b.author === blog.author && b.id !== blog.id ).slice(0,5));    
@@ -46,7 +51,7 @@ const BlogPage = () => {
         };
         
         loadBlogs();
-  },[blog]);
+  },[blog])
 
   const handleDelete = async () => {
     const confirm = window.confirm("Are you sure you want to delete blog?");
@@ -75,10 +80,10 @@ const BlogPage = () => {
   return (
     <>
       <section >
-        <div className="container  m-auto py-6 px-6">
+        <div className="  xl:container  m-auto py-6 px-4 md:px-12">
           <Link
             to="/blogs"
-            className=" rounded-md px-3 py-1 border-transparent text-black  inline-flex items-center hover:border-solid  hover:text-red-500 hover:border-red-500 border-2"
+            className=" rounded-md px-4 py-1 border-transparent text-black  inline-flex items-center hover:border-solid  hover:text-red-500 hover:border-red-500 border-2"
           >
             <FaArrowLeft className="mr-2 " /> Back
           </Link>
@@ -89,8 +94,8 @@ const BlogPage = () => {
         <Spinner loading={loading} />
       ) : (
         <section className="bg-gray-50 min-h-screen">
-          <div className="container m-auto py-10 px-6">
-            <div className="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
+          <div className="xl:container m-auto py-10 px-4 md:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-70/30 w-full gap-6">
               <main>
                 <div className="bg-white p-6 rounded-lg shadow-md text-left">
                   <div className="text-gray-500 mb-4">{blog.category}</div>
@@ -108,7 +113,7 @@ const BlogPage = () => {
                   </div>
                 </div>
 
-                <div className="prose min-w-[100%] bg-white p-6 rounded-lg shadow-md mt-6">
+                <div className="prose min-w-[100%] bg-white p-6 rounded-lg break-words text-wrap shadow-md mt-6">
                   <div dangerouslySetInnerHTML={{ __html: blog.body }}></div>
                 </div>
               </main>

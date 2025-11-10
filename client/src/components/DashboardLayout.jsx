@@ -14,21 +14,23 @@ const DashboardLayout = ({blogs}) => {
 
   return (
     <>
-    <div className="mt-8  border-b py-2">
-      <div className="flex gap-2 items-center py-2">
-        <FaUserCircle className="h-full  w-16 text-gray-600 " />
+    <div className="mt-8 px-4 md:px-12  border-b py-2">
+      <div className="flex flex-col md:flex-row gap-2 items-center py-2">
+        <div className="flex gap-2 items-center">
+          <FaUserCircle className="md:h-20  md:w-20 h-40 w-40 text-gray-600 " />
         <h1 className="text-4xl text-gray-800  playwrite font-bold p-4">
           <span className="text-red-500">Welcome</span>, {user.name}{" "}
           <p  className="text-gray-600 text-sm font-normal mt-4">
-            Member since : {formatDate(user.joined_on)}
+            Member since : {formatDate(user.joined_on || user.registered_on)}
           </p>
         </h1>
-        <Link to="/create-blog" className="px-4 p-2 red-gradient font-bold text-white drop-shadow-lg ms-auto  rounded-md"> <FilePlus className="inline h-5 w-5" /> Create Blog</Link>
+        </div>
+        <Link to="/create-blog" className="px-4 p-2  red-gradient font-bold text-white drop-shadow-lg md:ms-auto  rounded-md"> <FilePlus className="inline h-5 w-5" /> Create Blog</Link>
       </div>
       
     </div>
     {/* analytics */}
-      <div className="flex gap-8 my-8">
+      <div className="flex gap-8 my-8 px-4 md:px-12">
         <div className="bg-gray-100 text-2xl  h-36 flex flex-col justify-center items center rounded-md drop-shadow-xl flex-1 text-black font-bold text-center">
             <h1>Blogs Posted</h1>
             {
@@ -43,7 +45,7 @@ const DashboardLayout = ({blogs}) => {
         </div>
        
       </div>
-      <h1 className="text-3xl mb-8">Recently Posted</h1>
+      <h1 className="text-3xl mb-8 px-4 md:px-12">Recently Posted</h1>
         <BlogsPage blogs={blogs.slice(0,6)} dashboard={true} />  
       
       </>

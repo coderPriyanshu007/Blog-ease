@@ -82,10 +82,10 @@ const EditBlog = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-6">
-      <div className="bg-white p-10 mt-8 rounded-xl shadow-lg w-full container-xl md:container ">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4 md:p-12">
+      <div className="bg-white p-10 mt-8 rounded-xl shadow-lg w-full  ">
         <h1 className="text-3xl font-bold text-start text-red-600 mb-8">
-          Create New Blog
+          Edit Blog
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">

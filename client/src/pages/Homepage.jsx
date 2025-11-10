@@ -7,10 +7,10 @@ import BlogListing from "../components/BlogListing";
 export default function LandingPage() {
   const { user } = useAuth();
   return (
-    <main className="min-h-screen flex p-12 flex-col bg-gray-50">
+    <main className="min-h-screen flex p-4 md:p-12 flex-col bg-gray-50">
       {/* Hero Section */}
       <div
-        className="flex flex-col min-h-[70dvh] items-start justify-center flex-1 px-12 text-start"
+        className="flex flex-col min-h-[70dvh]  items-start justify-center flex-1 px-4  md:px-10 text-start"
         style={{
           backgroundImage: `url(${bg})`,
           backgroundRepeat: "no-repeat",

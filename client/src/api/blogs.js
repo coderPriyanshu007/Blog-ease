@@ -55,14 +55,6 @@ export const fetchBlogById = async (id,token) => {
   }
 }
 
-// export const bookEvent = async (id, userId) => {
-//   try {
-//     const res = await axios.post(`${BASE_URL}/book/${id}`, { userId });
-//     return res.data;
-//   } catch (error) {
-//     throw new Error(error.response?.data?.message || "Failed to book event");
-//   }
-// }
 
 export const updateBlog = async (blogData,token) => {
   try {
@@ -77,41 +69,12 @@ export const updateBlog = async (blogData,token) => {
   }
 }
 
-export const bookEventSeats = async (id, seats,token) => {
-  try {
-    const res = await axios.post(`${BASE_URL}/book-seats/${id}`, { seats },{
-      headers:{
-        Authorization: `Bearer ${token}`
-      }
-    });
+export const updateBlogViews = async (id)=>{
+  try{
+    await axios.patch(`${BASE_URL}/update-views/${id}`)
     return res.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || "Failed to book seats");
-  } 
+  }catch(error){
+    throw new Error(error.response?.data?.message || "failed to update views"
+    )
+  }
 }
-
-export const getAttendees = async (eventId,token) => { 
-    try{
-      const res = await axios.get(`${BASE_URL}/attendees/${eventId}`,{
-        headers:{
-          Authorization: `Bearer ${token}`
-        }
-      });
-      return res.data;  
-    }catch(error){
-      throw new Error(error.response?.data?.message)
-    }
-}
-
-export const removeAttendee = async (attendeeId,token) => {
-  try {
-    const res = await axios.delete(`${BASE_URL}/attendees/${attendeeId}`,{
-      headers:{
-        Authorization: `Bearer ${token}`
-      }
-    });
-    return res.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || "Failed to remove attendee");
-  } 
-};

@@ -1,6 +1,6 @@
 
 
-import { fetchAllBlogs ,insertBlog,getBlogById,updateBlog , removeBlog} from '../models/blogModel.js';
+import { fetchAllBlogs ,insertBlog,getBlogById,updateBlog , removeBlog, updateViews} from '../models/blogModel.js';
 
 
 export const fetchBlogs = async (req, res) => {
@@ -42,7 +42,9 @@ export const deleteBlog = async (req,res) => {
 
 export const fetchBlogById = async (req, res) => { 
   const { id } = req.params;
+
   try {
+    await updateViews(id);
     const blog = await getBlogById(id);
     if (blog) {
       res.status(200).json(blog);
@@ -71,6 +73,18 @@ export const editBlog = async (req, res) => {
     console.log(err);
   } 
 };
+
+export const view = async(req,res) => {
+  const {id} = req.params;
+  console.log(id)
+  try{
+    await updateViews(id);
+    res.status(200).json({message:'views updated '});
+  }catch(error){
+    res.status(500).json({message:'Error updating views'})
+    console.log(error);
+  }
+}
 
 
 

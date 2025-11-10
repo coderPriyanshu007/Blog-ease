@@ -38,7 +38,9 @@ export const updateBlog = async (id, blog) => {
   return rows[0];
 }
 
-
+export const updateViews = async (id) => { 
+  await pool.query('UPDATE blogs SET views = views + 1 WHERE id = $1',[id])
+}
 
 
 

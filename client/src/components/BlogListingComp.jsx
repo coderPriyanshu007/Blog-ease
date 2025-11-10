@@ -27,7 +27,7 @@ const BlogListingComp = ({ blog }) => {
           </div>
         </div>
 
-        <p className="mb-5 text-md text-gray-600 text-light   ">{description}</p>
+        <p className="mb-5 text-md text-gray-600 text-light break-words  ">{description}</p>
 
         <div className="border border-gray-100 mb-2"></div>
 

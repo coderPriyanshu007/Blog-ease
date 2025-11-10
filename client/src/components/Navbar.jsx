@@ -32,19 +32,19 @@ const Navbar = () => {
       : "text-black font-bold hover:text-black hover:bg-gray-200  rounded-full px-4 py-2 transition-colors duration-300 ease-in";
 
   return (
-    <nav className=" sticky top-0 z-10 backdrop-blur-lg w-full ">
-      <div className=" container-xl lg:container mx-auto">
+    <nav className=" sticky top-0 z-10 px-4 md:px-12 backdrop-blur-lg w-full ">
+      <div className="mx-auto">
         <div className="flex h-20 items-center justify-start relative">
           {/* Logo */}
           <NavLink to="/" className="flex items-center mr-4">
-            <span className="hidden md:block text-black text-2xl font-extrabold">
+            <span className=" text-black text-2xl font-extrabold">
               <span className="text-red-500">Blog</span>{" "}
               <span className="text-gray-800">Ease</span>
             </span>
           </NavLink>
 
           {/* Primary Links */}
-          <div className="flex ms-2 space-x-4">
+          <div className=" ms-2 hidden md:flex space-x-4">
             <NavLink to="/" className={linkClass}>
               Home
             </NavLink>
