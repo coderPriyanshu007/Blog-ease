@@ -8,15 +8,9 @@ import Spinner from "../components/Spinner";
 import writing from "../assets/writing.png";
 import { FaEye } from "react-icons/fa";
 import formatViews from "../utils/formatViews";
-import {
-  deleteBlog,
-  fetchBlogById,
-  fetchBlogs,
-  
-} from "../api/blogs";
+import { deleteBlog, fetchBlogById, fetchBlogs } from "../api/blogs";
 import { formatDate } from "../utils/formatDate";
 import BlogList from "../components/BlogList";
-
 
 const BlogPage = () => {
   const { id } = useParams();
@@ -30,7 +24,7 @@ const BlogPage = () => {
 
   useEffect(() => {
     const loadblog = async () => {
-      if(!loading) setLoading(true);
+      if (!loading) setLoading(true);
       try {
         const blog = await fetchBlogById(id, token);
 
@@ -46,7 +40,7 @@ const BlogPage = () => {
 
   useEffect(() => {
     const loadBlogs = async () => {
-      if(!fetchingOtherBlogs) setFetchingOtherBlogs(true);
+      if (!fetchingOtherBlogs) setFetchingOtherBlogs(true);
       try {
         const blogs = await fetchBlogs();
         setMoreByAuthor(
@@ -62,7 +56,7 @@ const BlogPage = () => {
         setLoading(false);
       } catch (err) {
         console.error(err.message);
-      }finally{
+      } finally {
         setFetchingOtherBlogs(false);
       }
     };
@@ -109,7 +103,7 @@ const BlogPage = () => {
 
       {loading ? (
         <div className="min-h-screen">
-            <Spinner loading={loading} />
+          <Spinner loading={loading} />
         </div>
       ) : (
         <section className="bg-gray-50 min-h-screen">
@@ -160,13 +154,22 @@ const BlogPage = () => {
                 {/* related blogs */}
                 <div className="bg-white p-6 rounded-lg shadow-md mb-8 ">
                   <h1 className="text-xl font-bold mb-6">Related blogs</h1>
-                  {
-                    fetchingOtherBlogs && <Spinner loading={fetchingOtherBlogs}  />
-                  }
-                  {!fetchingOtherBlogs && relatedBlogs && relatedBlogs.length > 0 ? (
-                    relatedBlogs.map((b) => (<Link to={`/blogs/${b.id}`}><BlogList b={b} key={b.id} /></Link>))
+                  {fetchingOtherBlogs ? (
+                    <div className="w-40 h-40">
+                      <Spinner loading={fetchingOtherBlogs} />
+                    </div>
                   ) : (
-                    <p>No related blogs found.</p>
+                    <div>
+                      {relatedBlogs && relatedBlogs.length > 0 ? (
+                        relatedBlogs.map((b) => (
+                          <Link to={`/blogs/${b.id}`}>
+                            <BlogList b={b} key={b.id} />
+                          </Link>
+                        ))
+                      ) : (
+                        <p>No related blogs found.</p>
+                      )}
+                    </div>
                   )}
                 </div>
 
@@ -176,13 +179,20 @@ const BlogPage = () => {
                   <h1 className="text-xl font-bold mb-6">
                     More blogs by the author
                   </h1>
-                  {
-                    fetchingOtherBlogs && <Spinner loading={fetchingOtherBlogs} />
-                  }
-                  {!fetchingOtherBlogs && moreByAuthor && moreByAuthor.length > 0 ? (
-                    moreByAuthor.map((b) => (<Link to={`/blogs/${b.id}`}><BlogList b={b} key={b.id} /></Link>))
+                  {fetchingOtherBlogs ? (
+                    <div className="h-40 w-40"><Spinner loading={fetchingOtherBlogs} /></div>
                   ) : (
-                    <p>No related blogs found.</p>
+                    <div>
+                      {moreByAuthor && moreByAuthor.length > 0 ? (
+                        moreByAuthor.map((b) => (
+                          <Link to={`/blogs/${b.id}`}>
+                            <BlogList b={b} key={b.id} />
+                          </Link>
+                        ))
+                      ) : (
+                        <p>No related blogs found.</p>
+                      )}
+                    </div>
                   )}
                 </div>
               </aside>
