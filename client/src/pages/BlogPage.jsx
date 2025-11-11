@@ -23,6 +23,7 @@ const BlogPage = () => {
   const { token, user } = useAuth();
   const [blog, setblog] = useState();
   const [relatedBlogs, setRelatedBlogs] = useState();
+  const [fetchingOtherBlogs, setFetchingOtherBlogs] = useState(true);
   const [moreByAuthor, setMoreByAuthor] = useState();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -45,6 +46,7 @@ const BlogPage = () => {
 
   useEffect(() => {
     const loadBlogs = async () => {
+      if(!fetchingOtherBlogs) setFetchingOtherBlogs(true);
       try {
         const blogs = await fetchBlogs();
         setMoreByAuthor(
@@ -60,6 +62,8 @@ const BlogPage = () => {
         setLoading(false);
       } catch (err) {
         console.error(err.message);
+      }finally{
+        setFetchingOtherBlogs(false);
       }
     };
 
@@ -156,7 +160,10 @@ const BlogPage = () => {
                 {/* related blogs */}
                 <div className="bg-white p-6 rounded-lg shadow-md mb-8 ">
                   <h1 className="text-xl font-bold mb-6">Related blogs</h1>
-                  {relatedBlogs && relatedBlogs.length > 0 ? (
+                  {
+                    fetchingOtherBlogs && <Spinner loading={fetchingOtherBlogs}  />
+                  }
+                  {!fetchingOtherBlogs && relatedBlogs && relatedBlogs.length > 0 ? (
                     relatedBlogs.map((b) => (<Link to={`/blogs/${b.id}`}><BlogList b={b} key={b.id} /></Link>))
                   ) : (
                     <p>No related blogs found.</p>
@@ -169,7 +176,10 @@ const BlogPage = () => {
                   <h1 className="text-xl font-bold mb-6">
                     More blogs by the author
                   </h1>
-                  {moreByAuthor && moreByAuthor.length > 0 ? (
+                  {
+                    fetchingOtherBlogs && <Spinner loading={fetchingOtherBlogs} />
+                  }
+                  {!fetchingOtherBlogs && moreByAuthor && moreByAuthor.length > 0 ? (
                     moreByAuthor.map((b) => (<Link to={`/blogs/${b.id}`}><BlogList b={b} key={b.id} /></Link>))
                   ) : (
                     <p>No related blogs found.</p>
