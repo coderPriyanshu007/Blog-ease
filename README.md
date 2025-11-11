@@ -6,7 +6,7 @@ It allows users to create blogs, explore blogs, and manage their blogs edit, upd
 ---
 
 ## Live 
-[EventEase](https://event-ease-khaki.vercel.app)
+[BLog Ease](https://blog-ease-xbyb.vercel.app/)
 
 
 ---
