@@ -29,6 +29,7 @@ const BlogPage = () => {
 
   useEffect(() => {
     const loadblog = async () => {
+      if(!loading) setLoading(true);
       try {
         const blog = await fetchBlogById(id, token);
 
