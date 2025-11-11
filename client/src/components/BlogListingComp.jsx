@@ -1,6 +1,6 @@
 import { formatDate } from "../utils/formatDate";
 import { FaEye } from "react-icons/fa";
-import { useAuth } from "../context/AuthContext";
+
 import striptags from "striptags";
 import { Link } from "react-router-dom";
 import writing from "../assets/writing.png";

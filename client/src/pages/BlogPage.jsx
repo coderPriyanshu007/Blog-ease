@@ -7,15 +7,20 @@ import { useAuth } from "../context/AuthContext";
 import Spinner from "../components/Spinner";
 import writing from "../assets/writing.png";
 import { FaEye } from "react-icons/fa";
-import  formatViews  from "../utils/formatViews";
-import { deleteBlog, fetchBlogById ,fetchBlogs, updateBlogViews} from "../api/blogs";
-import  {formatDate} from "../utils/formatDate";
+import formatViews from "../utils/formatViews";
+import {
+  deleteBlog,
+  fetchBlogById,
+  fetchBlogs,
+  
+} from "../api/blogs";
+import { formatDate } from "../utils/formatDate";
 import BlogList from "../components/BlogList";
-import { User } from "lucide-react";
+
 
 const BlogPage = () => {
   const { id } = useParams();
-  const { token ,user} = useAuth();
+  const { token, user } = useAuth();
   const [blog, setblog] = useState();
   const [relatedBlogs, setRelatedBlogs] = useState();
   const [moreByAuthor, setMoreByAuthor] = useState();
@@ -25,9 +30,8 @@ const BlogPage = () => {
   useEffect(() => {
     const loadblog = async () => {
       try {
-       
         const blog = await fetchBlogById(id, token);
-        
+
         setblog(blog);
       } catch (err) {
         console.log(err.message);
@@ -36,23 +40,30 @@ const BlogPage = () => {
       }
     };
     loadblog();
-  },[]);
+  }, [id]);
 
-  useEffect(()=>{
-
+  useEffect(() => {
     const loadBlogs = async () => {
-          try {
-            const blogs = await fetchBlogs()
-            setMoreByAuthor(blogs.filter(b=> b.author === blog.author && b.id !== blog.id ).slice(0,5));    
-            setRelatedBlogs(blogs.filter(b=> b.category === blog.category && b.id !== blog.id ).slice(0,5));
-            setLoading(false);
-          } catch (err) {
-            console.error(err.message);
-          }
-        };
-        
-        loadBlogs();
-  },[blog])
+      try {
+        const blogs = await fetchBlogs();
+        setMoreByAuthor(
+          blogs
+            .filter((b) => b.author === blog.author && b.id !== blog.id)
+            .slice(0, 5)
+        );
+        setRelatedBlogs(
+          blogs
+            .filter((b) => b.category === blog.category && b.id !== blog.id)
+            .slice(0, 5)
+        );
+        setLoading(false);
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
+    loadBlogs();
+  }, [blog]);
 
   const handleDelete = async () => {
     const confirm = window.confirm("Are you sure you want to delete blog?");
@@ -64,7 +75,7 @@ const BlogPage = () => {
         render: "blog Deleted Successfully!",
         isLoading: false,
         type: "success",
-        autoClose:1500
+        autoClose: 1500,
       });
       navigate("/blogs");
     } catch (err) {
@@ -73,15 +84,15 @@ const BlogPage = () => {
         render: "Failed to Delete blog",
         isLoading: false,
         type: "error",
-        autoClose:1500
+        autoClose: 1500,
       });
     }
   };
 
   return (
     <>
-      <section >
-        <div className="  xl:container  m-auto py-6 px-4 md:px-12">
+      <section>
+        <div className="  m-auto py-6 px-4 md:px-12">
           <Link
             to="/blogs"
             className=" rounded-md px-4 py-1 border-transparent text-black  inline-flex items-center hover:border-solid  hover:text-red-500 hover:border-red-500 border-2"
@@ -92,7 +103,9 @@ const BlogPage = () => {
       </section>
 
       {loading ? (
-        <Spinner loading={loading} />
+        <div className="min-h-screen">
+            <Spinner loading={loading} />
+        </div>
       ) : (
         <section className="bg-gray-50 min-h-screen">
           <div className="xl:container m-auto py-10 px-4 md:px-12">
@@ -119,50 +132,47 @@ const BlogPage = () => {
                 </div>
               </main>
 
-              <aside >
+              <aside>
                 {/* manage blogs */}
-                {
-                  user.user_id === blog.user_id && (
-                    <div className="bg-white p-6 rounded-lg shadow-md ">
-                  <h1 className="text-xl font-bold mb-6">Manage blog</h1>
-                  <Link
-                    to={`/edit-blog/${blog.id}`}
-                    className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
-                  >
-                    Edit blog
-                  </Link>
-                  <button
-                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
-                    onClick={handleDelete}
-                  >
-                    Delete blog
-                  </button>
-                </div>
-                  )
-                }
+                {user.user_id === blog.user_id && (
+                  <div className="bg-white p-6 rounded-lg shadow-md mb-8 ">
+                    <h1 className="text-xl font-bold mb-6">Manage blog</h1>
+                    <Link
+                      to={`/edit-blog/${blog.id}`}
+                      className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+                    >
+                      Edit blog
+                    </Link>
+                    <button
+                      className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+                      onClick={handleDelete}
+                    >
+                      Delete blog
+                    </button>
+                  </div>
+                )}
 
                 {/* related blogs */}
-                <div className="bg-white p-6 rounded-lg shadow-md mt-8 ">
+                <div className="bg-white p-6 rounded-lg shadow-md mb-8 ">
                   <h1 className="text-xl font-bold mb-6">Related blogs</h1>
-                  {
-                    relatedBlogs && relatedBlogs.length > 0 ? relatedBlogs.map((b)=> (
-                        <BlogList b={b} key={b.id} />
-                    )) : <p>No related blogs found.</p>
-                  }
-                  
+                  {relatedBlogs && relatedBlogs.length > 0 ? (
+                    relatedBlogs.map((b) => (<Link to={`/blogs/${b.id}`}><BlogList b={b} key={b.id} /></Link>))
+                  ) : (
+                    <p>No related blogs found.</p>
+                  )}
                 </div>
-
 
                 {/*More by this author  */}
 
-                <div className="bg-white p-6 rounded-lg shadow-md mt-8 ">
-                  <h1 className="text-xl font-bold mb-6">More blogs by the author</h1>
-                  {
-                    moreByAuthor && moreByAuthor.length > 0 ? moreByAuthor.map((b)=> (
-                        <BlogList b={b} key={b.id} />
-                    )) : <p>No related blogs found.</p>
-                  }
-                  
+                <div className="bg-white p-6 rounded-lg shadow-md  ">
+                  <h1 className="text-xl font-bold mb-6">
+                    More blogs by the author
+                  </h1>
+                  {moreByAuthor && moreByAuthor.length > 0 ? (
+                    moreByAuthor.map((b) => (<Link to={`/blogs/${b.id}`}><BlogList b={b} key={b.id} /></Link>))
+                  ) : (
+                    <p>No related blogs found.</p>
+                  )}
                 </div>
               </aside>
             </div>
